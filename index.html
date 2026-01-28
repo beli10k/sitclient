@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BR Aposta+ | Apostas Fictícias do Brasileirão</title>
+    <meta name="description" content="Plataforma gratuita e fictícia de apostas esportivas do Brasileirão Série A. Simule apostas, veja estatísticas e divirta-se sem dinheiro real!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Barlow+Condensed:wght@600;700&family=Roboto:wght@400;500&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS COMPLETO BR APOSTA+ ===== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Cores Brasileiras */
+            --primary: #009C3B;
+            --secondary: #FFB81C;
+            --accent: #002776;
+            --destructive: #E8112D;
+            --background: #1C1C1E;
+            --foreground: #F2F2F2;
+            --card: #2D2D31;
+            --muted: #404045;
+            --muted-foreground: #A6A6A6;
+            --border: #4D4D52;
+            
+            --radius: 0.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        h4, h5, h6 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(28, 28, 30, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--foreground);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-box {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            color: var(--background);
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .logo-text h1 span {
+            color: var(--primary);
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            color: var(--muted-foreground);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        nav {
+            display: none;
+            gap: 0.25rem;
+        }
+
+        @media (min-width: 1024px) {
+            nav {
+                display: flex;
+            }
+        }
+
+        nav a {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            color: var(--muted-foreground);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--foreground);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0.25rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .cta-button {
+                display: inline-block;
+            }
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 156, 59, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            box-shadow: 0 15px 40px rgba(0, 156, 59, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid rgba(242, 242, 242, 0.2);
+            background: rgba(28, 28, 30, 0.5);
+            color: var(--foreground);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding-top: 5rem;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23009C3B;stop-opacity:0.1" /><stop offset="100%" style="stop-color:%23002776;stop-opacity:0.1" /></linearGradient></defs><rect width="1200" height="800" fill="%231C1C1E"/><circle cx="600" cy="400" r="300" fill="url(%23grad)"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(28, 28, 30, 0.8), rgba(28, 28, 30, 0.6), rgba(28, 28, 30, 1));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 56rem;
+            margin: 0 auto;
+            animation: slideInDiagonal 0.8s ease-out;
+        }
+
+        @keyframes slideInDiagonal {
+            from {
+                opacity: 0;
+                transform: translate(-30px, 30px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 156, 59, 0.2);
+            border: 1px solid rgba(0, 156, 59, 0.3);
+            color: var(--primary);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--muted-foreground);
+            max-width: 32rem;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+            }
+        }
+
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+            font-size: 0.875rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted-foreground);
+        }
+
+        @media (min-width: 640px) {
+            .hero-features {
+                flex-direction: row;
+                gap: 2rem;
+            }
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-item::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header .badge {
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 span {
+            color: var(--primary);
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--muted-foreground);
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+
+        /* ===== SOBRE SECTION ===== */
+        .about {
+            background: linear-gradient(135deg, rgba(0, 156, 59, 0.1), rgba(0, 40, 118, 0.1));
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+            background: inherit;
+            margin-top: -5rem;
+            padding-top: 8rem;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-text {
+            max-width: 56rem;
+            margin: 0 auto 3rem;
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--foreground);
+        }
+
+        .about-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: rgba(0, 156, 59, 0.2);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.75rem;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--muted-foreground);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* ===== JOGOS SECTION ===== */
+        .games {
+            background: var(--background);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.75rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted-foreground);
+        }
+
+        .game-teams {
+            space-y: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-badge {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--muted);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .team-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .vs-text {
+            text-align: center;
+            font-size: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            color: var(--muted-foreground);
+            margin: 0.5rem 0;
+        }
+
+        .odds-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .odd-button {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid transparent;
+            background: var(--muted);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .odd-button:hover {
+            border-color: var(--primary);
+            background: rgba(0, 156, 59, 0.2);
+        }
+
+        .odd-label {
+            font-size: 0.7rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            color: var(--muted-foreground);
+            margin-bottom: 0.25rem;
+        }
+
+        .odd-value {
+            font-size: 1.5rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            color: var(--foreground);
+        }
+
+        .bet-button {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bet-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 156, 59, 0.3);
+        }
+
+        /* ===== CLUBES SECTION ===== */
+        .clubs {
+            background: linear-gradient(135deg, rgba(255, 184, 28, 0.05), rgba(0, 156, 59, 0.05));
+        }
+
+        .clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .club-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .club-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+            background: rgba(0, 156, 59, 0.1);
+        }
+
+        .club-icon {
+            width: 4rem;
+            height: 4rem;
+            background: rgba(0, 156, 59, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .club-card:hover .club-icon {
+            background: linear-gradient(135deg, rgba(0, 156, 59, 0.4), rgba(0, 40, 118, 0.4));
+            color: white;
+        }
+
+        .club-name {
+            font-size: 0.875rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--foreground);
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats {
+            background: linear-gradient(135deg, rgba(0, 40, 118, 0.1), rgba(0, 156, 59, 0.05));
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .stat-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: rgba(0, 156, 59, 0.2);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.75rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted-foreground);
+        }
+
+        /* ===== COMO FUNCIONA SECTION ===== */
+        .how-it-works {
+            background: var(--background);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 80rem;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .step-number {
+            font-size: 4rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            color: rgba(0, 156, 59, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-card p {
+            color: var(--muted-foreground);
+            line-height: 1.6;
+        }
+
+        /* ===== LEGAL SECTION ===== */
+        .legal {
+            background: rgba(232, 17, 45, 0.1);
+            border-top: 1px solid rgba(232, 17, 45, 0.2);
+            border-bottom: 1px solid rgba(232, 17, 45, 0.2);
+            padding: 2rem 0;
+        }
+
+        .legal-content {
+            display: flex;
+            gap: 2rem;
+            max-width: 56rem;
+            margin: 0 auto;
+        }
+
+        .legal-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(232, 17, 45, 0.2);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .legal-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .legal-text p {
+            color: var(--muted-foreground);
+            line-height: 1.6;
+        }
+
+        /* ===== CONTATO SECTION ===== */
+        .contact {
+            background: var(--background);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 80rem;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .contact-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: rgba(0, 156, 59, 0.2);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.75rem;
+        }
+
+        .contact-card h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-card p {
+            color: var(--muted-foreground);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0 1.5rem;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 0;
+            }
+
+            .hero {
+                padding-top: 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .clubs-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-box">BR</div>
+                    <div class="logo-text">
+                        <h1>BR Aposta<span>+</span></h1>
+                        <p>Brasileirão 2026</p>
+                    </div>
+                </a>
+
+                <nav>
+                    <a href="#home">Início</a>
+                    <a href="#sobre">Sobre</a>
+                    <a href="#jogos">Jogos</a>
+                    <a href="#clubes">Clubes</a>
+                    <a href="#estatisticas">Estatísticas</a>
+                    <a href="#como-funciona">Como Funciona</a>
+                    <a href="#contato">Contato</a>
+                </nav>
+
+                <button class="cta-button btn btn-primary">Apostar Grátis</button>
+                <button class="menu-toggle">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">🏆 Brasileirão Série A 2026</div>
+                
+                <h1>Viva a Emoção do <span class="gradient-text">Brasileirão</span></h1>
+                
+                <p>Plataforma <strong>100% gratuita e fictícia</strong> de apostas esportivas. Simule apostas, analise estatísticas e divirta-se sem gastar nada!</p>
+                
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">⚡ Começar Agora</button>
+                    <button class="btn btn-outline">📊 Ver Estatísticas</button>
+                </div>
+                
+                <div class="hero-features">
+                    <div class="feature-item">100% Grátis</div>
+                    <div class="feature-item">Sem Dinheiro Real</div>
+                    <div class="feature-item">Educativo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE SECTION -->
+    <section id="sobre" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="section-header">
+                    <div class="badge">Sobre a Plataforma</div>
+                    <h2>BR Aposta<span>+</span></h2>
+                </div>
+
+                <div class="about-text">
+                    A <strong>BR Aposta+</strong> é uma plataforma digital <strong>fictícia e totalmente gratuita</strong>, criada para simular o ambiente de apostas esportivas focado no Campeonato Brasileiro Série A. Nosso objetivo é <strong>educar, entreter e conectar torcedores</strong> através de estatísticas, probabilidades e análises de jogos, sem envolver dinheiro real ou qualquer tipo de transação financeira.
+                </div>
+
+                <div class="about-cards">
+                    <div class="card">
+                        <div class="card-icon">🛡️</div>
+                        <h3>100% Seguro</h3>
+                        <p>Sem dinheiro real, sem riscos. Apenas diversão e aprendizado.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🏆</div>
+                        <h3>Brasileirão 2026</h3>
+                        <p>Foco total nos 20 clubes da Série A do campeonato brasileiro.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👥</div>
+                        <h3>Comunidade</h3>
+                        <p>Conecte-se com outros torcedores e compartilhe análises.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOGOS SECTION -->
+    <section id="jogos" class="games">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">Próxima Rodada</div>
+                <h2>Jogos em <span>Destaque</span></h2>
+                <p>Confira os principais confrontos da rodada com odds fictícias atualizadas</p>
+            </div>
+
+            <div class="games-grid">
+                <!-- Jogo 1 -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <span>Sábado, 15:30</span>
+                        <span>Maracanã</span>
+                    </div>
+                    
+                    <div class="game-teams">
+                        <div class="team">
+                            <div class="team-badge">🔴</div>
+                            <span class="team-name">Flamengo</span>
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="team">
+                            <div class="team-badge">🟢</div>
+                            <span class="team-name">Palmeiras</span>
+                        </div>
+                    </div>
+
+                    <div class="odds-container">
+                        <button class="odd-button">
+                            <div class="odd-label">Casa</div>
+                            <div class="odd-value">2.10</div>
+                        </button>
+                        <button class="odd-button">
+                            <div class="odd-label">Empate</div>
+                            <div class="odd-value">3.20</div>
+                        </button>
+                        <button class="odd-button">
+                            <div class="odd-label">Fora</div>
+                            <div class="odd-value">3.50</div>
+                        </button>
+                    </div>
+
+                    <button class="bet-button">Simular Aposta</button>
+                </div>
+
+                <!-- Jogo 2 -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <span>Domingo, 16:00</span>
+                        <span>Neo Química Arena</span>
+                    </div>
+                    
+                    <div class="game-teams">
+                        <div class="team">
+                            <div class="team-badge">⚪</div>
+                            <span class="team-name">Corinthians</span>
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="team">
+                            <div class="team-badge">🔴</div>
+                            <span class="team-name">São Paulo</span>
+                        </div>
+                    </div>
+
+                    <div class="odds-container">
+                        <button class="odd-button">
+                            <div class="odd-label">Casa</div>
+                            <div class="odd-value">2.45</div>
+                        </button>
+                        <button class="odd-button">
+                            <div class="odd-label">Empate</div>
+                            <div class="odd-value">3.10</div>
+                        </button>
+                        <button class="odd-button">
+                            <div class="odd-label">Fora</div>
+                            <div class="odd-value">2.90</div>
+                        </button>
+                    </div>
+
+                    <button class="bet-button">Simular Aposta</button>
+                </div>
+
+                <!-- Jogo 3 -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <span>Domingo, 18:30</span>
+                        <span>Arena MRV</span>
+                    </div>
+                    
+                    <div class="game-teams">
+                        <div class="team">
+                            <div class="team-badge">⚫</div>
+                            <span class="team-name">Atlético-MG</span>
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="team">
+                            <div class="team-badge">🔵</div>
+                            <span class="team-name">Cruzeiro</span>
+                        </div>
+                    </div>
+
+                    <div class="odds-container">
+                        <button class="odd-button">
+                            <div class="odd-label">Casa</div>
+                            <div class="odd-value">1.95</div>
+                        </button>
+                        <button class="odd-button">
+                            <div class="odd-label">Empate</div>
+                            <div class="odd-value">3.40</div>
+                        </button>
+                        <button class="odd-button">
+                            <div class="odd-label">Fora</div>
+                            <div class="odd-value">4.20</div>
+                        </button>
+                    </div>
+
+                    <button class="bet-button">Simular Aposta</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLUBES SECTION -->
+    <section id="clubes" class="clubs">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">Série A 2026</div>
+                <h2>20 Clubes da <span>Elite</span></h2>
+                <p>Todos os times participantes do Campeonato Brasileiro Série A</p>
+            </div>
+
+            <div class="clubs-grid">
+                <div class="club-card"><div class="club-icon">🔴</div><div class="club-name">Athletico-PR</div></div>
+                <div class="club-card"><div class="club-icon">⚫</div><div class="club-name">Atlético-MG</div></div>
+                <div class="club-card"><div class="club-icon">🔵</div><div class="club-name">Bahia</div></div>
+                <div class="club-card"><div class="club-icon">⚪</div><div class="club-name">Botafogo</div></div>
+                <div class="club-card"><div class="club-icon">🟢</div><div class="club-name">Chapecoense</div></div>
+                <div class="club-card"><div class="club-icon">⚪</div><div class="club-name">Corinthians</div></div>
+                <div class="club-card"><div class="club-icon">🟢</div><div class="club-name">Coritiba</div></div>
+                <div class="club-card"><div class="club-icon">🔵</div><div class="club-name">Cruzeiro</div></div>
+                <div class="club-card"><div class="club-icon">🔴</div><div class="club-name">Flamengo</div></div>
+                <div class="club-card"><div class="club-icon">🟣</div><div class="club-name">Fluminense</div></div>
+                <div class="club-card"><div class="club-icon">🔵</div><div class="club-name">Grêmio</div></div>
+                <div class="club-card"><div class="club-icon">🔴</div><div class="club-name">Internacional</div></div>
+                <div class="club-card"><div class="club-icon">🟡</div><div class="club-name">Mirassol</div></div>
+                <div class="club-card"><div class="club-icon">🟢</div><div class="club-name">Palmeiras</div></div>
+                <div class="club-card"><div class="club-icon">🔴</div><div class="club-name">Red Bull Bragantino</div></div>
+                <div class="club-card"><div class="club-icon">🔵</div><div class="club-name">Remo</div></div>
+                <div class="club-card"><div class="club-icon">⚪</div><div class="club-name">Santos</div></div>
+                <div class="club-card"><div class="club-icon">🔴</div><div class="club-name">São Paulo</div></div>
+                <div class="club-card"><div class="club-icon">⚫</div><div class="club-name">Vasco da Gama</div></div>
+                <div class="club-card"><div class="club-icon">🔴</div><div class="club-name">Vitória</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section id="estatisticas" class="stats">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">Dados em Tempo Real</div>
+                <h2>Estatísticas e <span>Probabilidades</span></h2>
+                <p>Análises detalhadas e dados simulados para ajudar suas decisões</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-value">1.247</div>
+                    <div class="stat-label">Jogos Simulados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value">8.932</div>
+                    <div class="stat-label">Usuários Ativos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🛡️</div>
+                    <div class="stat-value">20</div>
+                    <div class="stat-label">Times Analisados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value">15.6K</div>
+                    <div class="stat-label">Estatísticas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMO FUNCIONA SECTION -->
+    <section id="como-funciona" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">Guia Rápido</div>
+                <h2>Como <span>Funciona</span></h2>
+                <p>Simples, rápido e totalmente gratuito</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <h3>Escolha um Jogo</h3>
+                    <p>Navegue pelos jogos em destaque do Brasileirão e escolha o confronto que mais te interessa.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <h3>Analise as Odds</h3>
+                    <p>Veja as probabilidades fictícias e estatísticas detalhadas de cada time antes de decidir.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <h3>Simule sua Aposta</h3>
+                    <p>Faça sua simulação sem gastar nada! Tudo é virtual, educativo e sem riscos financeiros.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEGAL SECTION -->
+    <section class="legal">
+        <div class="container">
+            <div class="legal-content">
+                <div class="legal-icon">⚠️</div>
+                <div class="legal-text">
+                    <h3>Aviso Legal Importante</h3>
+                    <p>A <strong>BR Aposta+</strong> é uma plataforma <strong>100% fictícia, gratuita e sem fins lucrativos</strong>. Não realizamos apostas com dinheiro real, não coletamos pagamentos e não incentivamos jogos de azar. Todo o conteúdo é destinado exclusivamente para <strong>entretenimento, educação e simulação</strong>. Se você tem interesse em apostas reais, procure plataformas regulamentadas e jogue com responsabilidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO SECTION -->
+    <section id="contato" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">Fale Conosco</div>
+                <h2>Entre em <span>Contato</span></h2>
+                <p>Dúvidas, sugestões ou feedback? Estamos aqui para ajudar!</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <h4>E-mail</h4>
+                    <p>contato@brapostaplus.com.br</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <h4>Telefone</h4>
+                    <p>(11) 9 9999-9999</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h4>Localização</h4>
+                    <p>São Paulo, SP - Brasil</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 1rem;">
+                        <div class="logo-box">BR</div>
+                        <div class="logo-text">
+                            <h1 style="font-size: 1rem;">BR Aposta<span>+</span></h1>
+                            <p>Brasileirão 2026</p>
+                        </div>
+                    </div>
+                    <p style="color: var(--muted-foreground); font-size: 0.95rem; line-height: 1.6;">Plataforma fictícia e gratuita de apostas esportivas focada no Campeonato Brasileiro Série A.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#jogos">Jogos em Destaque</a></li>
+                        <li><a href="#clubes">Clubes da Série A</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Informações</h4>
+                    <ul>
+                        <li><a href="#estatisticas">Estatísticas</a></li>
+                        <li><a href="#como-funciona">Como Funciona</a></li>
+                        <li><a href="#legal">Aviso Legal</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Aviso Legal</h4>
+                    <p style="color: var(--muted-foreground); font-size: 0.875rem; line-height: 1.6;">Este é um site <strong>100% fictício e gratuito</strong>. Não utilizamos dinheiro real e não temos fins lucrativos. Destinado apenas para entretenimento e educação.</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 BR Aposta+. Todos os direitos reservados. Plataforma fictícia sem fins lucrativos.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+        
+        menuToggle?.addEventListener('click', () => {
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>
