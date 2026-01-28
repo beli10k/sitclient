@@ -489,87 +489,160 @@
 
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1.5rem;
         }
 
+        @media (min-width: 768px) {
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .games-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         .game-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--card), rgba(45, 45, 49, 0.8));
+            border: 2px solid var(--border);
+            border-radius: 0.75rem;
             padding: 1.5rem;
             transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0.25rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .game-card:hover {
-            transform: scale(1.05);
             border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 156, 59, 0.2);
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
         }
 
         .game-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             font-size: 0.75rem;
             font-family: 'Barlow Condensed', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--muted-foreground);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .game-time {
+            background: rgba(0, 156, 59, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 156, 59, 0.2);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .game-stadium {
+            color: var(--muted-foreground);
         }
 
         .game-teams {
-            space-y: 1rem;
             margin-bottom: 1.5rem;
         }
 
         .team {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
             margin-bottom: 1rem;
         }
 
         .team-badge {
-            width: 2.5rem;
-            height: 2.5rem;
-            background: var(--muted);
-            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, rgba(0, 156, 59, 0.2), rgba(0, 40, 118, 0.2));
+            border-radius: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .team-info {
+            flex: 1;
         }
 
         .team-name {
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 700;
             font-size: 1.125rem;
+            color: var(--foreground);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .vs-text {
+        .team-record {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+            margin-top: 0.25rem;
+        }
+
+        .vs-divider {
             text-align: center;
-            font-size: 1.5rem;
+            margin: 0.75rem 0;
+            font-size: 1.25rem;
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
             color: var(--muted-foreground);
-            margin: 0.5rem 0;
         }
 
-        .odds-container {
+        .odds-section {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .odds-label {
+            font-size: 0.75rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted-foreground);
+            margin-bottom: 0.75rem;
+        }
+
+        .odds-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
+            gap: 0.75rem;
         }
 
         .odd-button {
-            flex: 1;
             padding: 0.75rem;
-            border: 2px solid transparent;
-            background: var(--muted);
-            border-radius: var(--radius);
+            border: 2px solid var(--border);
+            background: rgba(64, 64, 69, 0.5);
+            border-radius: 0.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -577,10 +650,16 @@
 
         .odd-button:hover {
             border-color: var(--primary);
-            background: rgba(0, 156, 59, 0.2);
+            background: rgba(0, 156, 59, 0.15);
+            transform: scale(1.05);
         }
 
-        .odd-label {
+        .odd-button.selected {
+            border-color: var(--primary);
+            background: rgba(0, 156, 59, 0.3);
+        }
+
+        .odd-button-label {
             font-size: 0.7rem;
             font-family: 'Barlow Condensed', sans-serif;
             text-transform: uppercase;
@@ -588,31 +667,234 @@
             margin-bottom: 0.25rem;
         }
 
-        .odd-value {
+        .odd-button-value {
             font-size: 1.5rem;
             font-family: 'Rajdhani', sans-serif;
             font-weight: 700;
             color: var(--foreground);
+            text-shadow: 0 0 10px rgba(0, 156, 59, 0.3);
         }
 
         .bet-button {
             width: 100%;
-            margin-top: 1rem;
-            padding: 0.75rem;
+            padding: 1rem;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
             border: none;
-            border-radius: var(--radius);
+            border-radius: 0.5rem;
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 700;
+            font-size: 1rem;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .bet-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 156, 59, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 156, 59, 0.4);
+        }
+
+        .bet-button:active {
+            transform: translateY(0);
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.75rem;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header p {
+            color: var(--muted-foreground);
+        }
+
+        .bet-form {
+            space-y: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--foreground);
+            font-family: 'Roboto', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 156, 59, 0.2);
+        }
+
+        .form-group-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .bet-summary {
+            background: rgba(0, 156, 59, 0.1);
+            border: 1px solid rgba(0, 156, 59, 0.2);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+            border-top: 1px solid rgba(0, 156, 59, 0.2);
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 156, 59, 0.4);
+        }
+
+        /* SUCCESS MESSAGE */
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 156, 59, 0.3);
+            z-index: 200;
+            animation: slideInRight 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* ===== CLUBES SECTION ===== */
@@ -918,6 +1200,16 @@
             .clubs-grid {
                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .success-message {
+                left: 1rem;
+                right: 1rem;
+            }
         }
 
         /* ===== ANIMATIONS ===== */
@@ -943,11 +1235,7 @@
         <div class="container">
             <div class="header-content">
                 <a href="#" class="logo">
-                    <div class="logo-box">BR</div>
-                    <div class="logo-text">
-                        <h1>BR Aposta<span>+</span></h1>
-                        <p>Brasileirão 2026</p>
-                    </div>
+                    <img src="https://chatgpt.com/backend-api/estuary/content?id=file_00000000de3c720e800700f7eb157cda&ts=491557&p=fs&cid=1&sig=81252e7dca8448f8b2c6339ef346ee5a08765d72526f75d62d241e725d790476&v=0" alt="BR Aposta+" style="height: 3.5rem; width: auto;">
                 </a>
 
                 <nav>
@@ -1024,126 +1312,17 @@
         </div>
     </section>
 
-    <!-- JOGOS SECTION -->
+    <!-- JOGOS SECTION COM FUNCIONALIDADE INTERATIVA -->
     <section id="jogos" class="games">
         <div class="container">
             <div class="section-header">
                 <div class="badge">Próxima Rodada</div>
                 <h2>Jogos em <span>Destaque</span></h2>
-                <p>Confira os principais confrontos da rodada com odds fictícias atualizadas</p>
+                <p>Escolha seus confrontos favoritos e simule suas apostas fictícias</p>
             </div>
 
-            <div class="games-grid">
-                <!-- Jogo 1 -->
-                <div class="game-card">
-                    <div class="game-header">
-                        <span>Sábado, 15:30</span>
-                        <span>Maracanã</span>
-                    </div>
-                    
-                    <div class="game-teams">
-                        <div class="team">
-                            <div class="team-badge">🔴</div>
-                            <span class="team-name">Flamengo</span>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="team">
-                            <div class="team-badge">🟢</div>
-                            <span class="team-name">Palmeiras</span>
-                        </div>
-                    </div>
-
-                    <div class="odds-container">
-                        <button class="odd-button">
-                            <div class="odd-label">Casa</div>
-                            <div class="odd-value">2.10</div>
-                        </button>
-                        <button class="odd-button">
-                            <div class="odd-label">Empate</div>
-                            <div class="odd-value">3.20</div>
-                        </button>
-                        <button class="odd-button">
-                            <div class="odd-label">Fora</div>
-                            <div class="odd-value">3.50</div>
-                        </button>
-                    </div>
-
-                    <button class="bet-button">Simular Aposta</button>
-                </div>
-
-                <!-- Jogo 2 -->
-                <div class="game-card">
-                    <div class="game-header">
-                        <span>Domingo, 16:00</span>
-                        <span>Neo Química Arena</span>
-                    </div>
-                    
-                    <div class="game-teams">
-                        <div class="team">
-                            <div class="team-badge">⚪</div>
-                            <span class="team-name">Corinthians</span>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="team">
-                            <div class="team-badge">🔴</div>
-                            <span class="team-name">São Paulo</span>
-                        </div>
-                    </div>
-
-                    <div class="odds-container">
-                        <button class="odd-button">
-                            <div class="odd-label">Casa</div>
-                            <div class="odd-value">2.45</div>
-                        </button>
-                        <button class="odd-button">
-                            <div class="odd-label">Empate</div>
-                            <div class="odd-value">3.10</div>
-                        </button>
-                        <button class="odd-button">
-                            <div class="odd-label">Fora</div>
-                            <div class="odd-value">2.90</div>
-                        </button>
-                    </div>
-
-                    <button class="bet-button">Simular Aposta</button>
-                </div>
-
-                <!-- Jogo 3 -->
-                <div class="game-card">
-                    <div class="game-header">
-                        <span>Domingo, 18:30</span>
-                        <span>Arena MRV</span>
-                    </div>
-                    
-                    <div class="game-teams">
-                        <div class="team">
-                            <div class="team-badge">⚫</div>
-                            <span class="team-name">Atlético-MG</span>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="team">
-                            <div class="team-badge">🔵</div>
-                            <span class="team-name">Cruzeiro</span>
-                        </div>
-                    </div>
-
-                    <div class="odds-container">
-                        <button class="odd-button">
-                            <div class="odd-label">Casa</div>
-                            <div class="odd-value">1.95</div>
-                        </button>
-                        <button class="odd-button">
-                            <div class="odd-label">Empate</div>
-                            <div class="odd-value">3.40</div>
-                        </button>
-                        <button class="odd-button">
-                            <div class="odd-label">Fora</div>
-                            <div class="odd-value">4.20</div>
-                        </button>
-                    </div>
-
-                    <button class="bet-button">Simular Aposta</button>
-                </div>
+            <div class="games-grid" id="gamesContainer">
+                <!-- Games will be generated by JavaScript -->
             </div>
         </div>
     </section>
@@ -1292,13 +1471,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <div class="logo" style="margin-bottom: 1rem;">
-                        <div class="logo-box">BR</div>
-                        <div class="logo-text">
-                            <h1 style="font-size: 1rem;">BR Aposta<span>+</span></h1>
-                            <p>Brasileirão 2026</p>
-                        </div>
-                    </div>
+                    <img src="logo.png" alt="BR Aposta+" style="height: 2.5rem; width: auto; margin-bottom: 1rem;">
                     <p style="color: var(--muted-foreground); font-size: 0.95rem; line-height: 1.6;">Plataforma fictícia e gratuita de apostas esportivas focada no Campeonato Brasileiro Série A.</p>
                 </div>
 
@@ -1339,7 +1512,267 @@
         </div>
     </footer>
 
+    <!-- BET MODAL -->
+    <div class="modal" id="betModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeBetModal()">✕</button>
+            
+            <div class="modal-header">
+                <h2>Simular Aposta</h2>
+                <p>Escolha seu palpite e o valor da aposta fictícia</p>
+            </div>
+
+            <div class="bet-form">
+                <div class="bet-summary">
+                    <div class="summary-row">
+                        <span>Confronto:</span>
+                        <span id="summaryMatch"></span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Seu Palpite:</span>
+                        <span id="summaryPick"></span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Odd:</span>
+                        <span id="summaryOdd"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Valor da Aposta (Créditos Fictícios)</label>
+                    <input type="number" class="form-input" id="betAmount" placeholder="100" min="10" max="10000" value="100">
+                </div>
+
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label class="form-label">Seu Nome</label>
+                        <input type="text" class="form-input" id="betName" placeholder="Seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="betEmail" placeholder="seu@email.com">
+                    </div>
+                </div>
+
+                <button class="submit-button" onclick="submitBet()">✓ Confirmar Aposta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS MESSAGE -->
+    <div class="success-message" id="successMessage">
+        <strong>✓ Aposta Simulada com Sucesso!</strong><br>
+        Seus créditos fictícios foram debitados. Boa sorte! 🍀
+    </div>
+
     <script>
+        // Dados dos jogos
+        const games = [
+            {
+                id: 1,
+                home: { name: 'Corinthians', emoji: '⚪', record: '12V-5E-3D' },
+                away: { name: 'Flamengo', emoji: '🔴', record: '14V-4E-2D' },
+                date: '28/01 - 15:30',
+                stadium: 'Neo Química Arena',
+                odds: { home: 2.45, draw: 3.10, away: 2.90 }
+            },
+            {
+                id: 2,
+                home: { name: 'Palmeiras', emoji: '🟢', record: '16V-3E-1D' },
+                away: { name: 'São Paulo', emoji: '🔴', record: '11V-6E-3D' },
+                date: '28/01 - 18:00',
+                stadium: 'Allianz Parque',
+                odds: { home: 1.85, draw: 3.40, away: 4.20 }
+            },
+            {
+                id: 3,
+                home: { name: 'Atlético-MG', emoji: '⚫', record: '13V-5E-2D' },
+                away: { name: 'Cruzeiro', emoji: '🔵', record: '10V-7E-3D' },
+                date: '29/01 - 19:00',
+                stadium: 'Arena MRV',
+                odds: { home: 1.95, draw: 3.40, away: 4.20 }
+            },
+            {
+                id: 4,
+                home: { name: 'Grêmio', emoji: '🔵', record: '12V-5E-3D' },
+                away: { name: 'Internacional', emoji: '🔴', record: '11V-6E-3D' },
+                date: '29/01 - 20:00',
+                stadium: 'Arena do Grêmio',
+                odds: { home: 2.30, draw: 3.20, away: 3.10 }
+            },
+            {
+                id: 5,
+                home: { name: 'Botafogo', emoji: '⚪', record: '14V-4E-2D' },
+                away: { name: 'Vasco da Gama', emoji: '⚫', record: '9V-6E-5D' },
+                date: '30/01 - 16:00',
+                stadium: 'Estádio Nilton Santos',
+                odds: { home: 1.75, draw: 3.50, away: 4.50 }
+            },
+            {
+                id: 6,
+                home: { name: 'Fluminense', emoji: '🟣', record: '11V-5E-4D' },
+                away: { name: 'Bahia', emoji: '🔵', record: '10V-7E-3D' },
+                date: '30/01 - 18:30',
+                stadium: 'Estádio de São Januário',
+                odds: { home: 2.10, draw: 3.30, away: 3.40 }
+            }
+        ];
+
+        let currentBet = null;
+
+        // Renderizar jogos
+        function renderGames() {
+            const container = document.getElementById('gamesContainer');
+            container.innerHTML = games.map(game => `
+                <div class="game-card">
+                    <div class="game-header">
+                        <span class="game-time">${game.date}</span>
+                        <span class="game-stadium">${game.stadium}</span>
+                    </div>
+
+                    <div class="game-teams">
+                        <div class="team">
+                            <div class="team-badge">${game.home.emoji}</div>
+                            <div class="team-info">
+                                <div class="team-name">${game.home.name}</div>
+                                <div class="team-record">${game.home.record}</div>
+                            </div>
+                        </div>
+
+                        <div class="vs-divider">VS</div>
+
+                        <div class="team">
+                            <div class="team-badge">${game.away.emoji}</div>
+                            <div class="team-info">
+                                <div class="team-name">${game.away.name}</div>
+                                <div class="team-record">${game.away.record}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="odds-section">
+                        <div class="odds-label">Escolha seu palpite:</div>
+                        <div class="odds-grid">
+                            <button class="odd-button" onclick="selectOdd(${game.id}, 'home', ${game.odds.home})">
+                                <div class="odd-button-label">Casa</div>
+                                <div class="odd-button-value">${game.odds.home.toFixed(2)}</div>
+                            </button>
+                            <button class="odd-button" onclick="selectOdd(${game.id}, 'draw', ${game.odds.draw})">
+                                <div class="odd-button-label">Empate</div>
+                                <div class="odd-button-value">${game.odds.draw.toFixed(2)}</div>
+                            </button>
+                            <button class="odd-button" onclick="selectOdd(${game.id}, 'away', ${game.odds.away})">
+                                <div class="odd-button-label">Fora</div>
+                                <div class="odd-button-value">${game.odds.away.toFixed(2)}</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="bet-button" onclick="openBetModal(${game.id})">
+                        ⚡ SIMULAR APOSTA
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Selecionar odd
+        function selectOdd(gameId, type, odd) {
+            const game = games.find(g => g.id === gameId);
+            const typeLabel = { home: game.home.name, draw: 'Empate', away: game.away.name };
+            
+            currentBet = {
+                gameId,
+                type,
+                typeLabel: typeLabel[type],
+                odd,
+                game
+            };
+
+            // Atualizar visual dos botões
+            document.querySelectorAll(`[onclick*="selectOdd(${gameId}"]`).forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.closest('.odd-button').classList.add('selected');
+        }
+
+        // Abrir modal de aposta
+        function openBetModal(gameId) {
+            if (!currentBet || currentBet.gameId !== gameId) {
+                alert('Selecione um palpite primeiro!');
+                return;
+            }
+
+            document.getElementById('summaryMatch').textContent = `${currentBet.game.home.name} x ${currentBet.game.away.name}`;
+            document.getElementById('summaryPick').textContent = currentBet.typeLabel;
+            document.getElementById('summaryOdd').textContent = currentBet.odd.toFixed(2);
+            
+            document.getElementById('betModal').classList.add('active');
+        }
+
+        // Fechar modal
+        function closeBetModal() {
+            document.getElementById('betModal').classList.remove('active');
+        }
+
+        // Enviar aposta
+        function submitBet() {
+            const name = document.getElementById('betName').value;
+            const email = document.getElementById('betEmail').value;
+            const amount = document.getElementById('betAmount').value;
+
+            if (!name || !email || !amount) {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            if (amount < 10) {
+                alert('O valor mínimo é 10 créditos fictícios!');
+                return;
+            }
+
+            // Simular envio
+            const possibleResults = ['Vitória! 🎉', 'Derrota 😢', 'Empate 🤝'];
+            const result = possibleResults[Math.floor(Math.random() * possibleResults.length)];
+            
+            const winnings = amount * currentBet.odd;
+
+            console.log({
+                name,
+                email,
+                match: `${currentBet.game.home.name} x ${currentBet.game.away.name}`,
+                pick: currentBet.typeLabel,
+                odd: currentBet.odd,
+                amount,
+                result,
+                winnings: result === 'Vitória! 🎉' ? winnings.toFixed(2) : 0
+            });
+
+            // Mostrar mensagem de sucesso
+            const successMsg = document.getElementById('successMessage');
+            successMsg.innerHTML = `
+                <strong>✓ Aposta Simulada com Sucesso!</strong><br>
+                <strong>${name}</strong>, sua aposta de <strong>${amount} créditos</strong> foi registrada!<br>
+                <strong>Resultado Simulado: ${result}</strong>
+                ${result === 'Vitória! 🎉' ? `<br>Você ganhou: <strong>${winnings.toFixed(2)} créditos</strong> 🍀` : ''}
+            `;
+            successMsg.classList.add('show');
+
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+                closeBetModal();
+                document.getElementById('betAmount').value = '100';
+                document.getElementById('betName').value = '';
+                document.getElementById('betEmail').value = '';
+            }, 4000);
+        }
+
+        // Fechar modal ao clicar fora
+        document.getElementById('betModal').addEventListener('click', (e) => {
+            if (e.target.id === 'betModal') {
+                closeBetModal();
+            }
+        });
+
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1358,6 +1791,9 @@
         menuToggle?.addEventListener('click', () => {
             nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
         });
+
+        // Renderizar ao carregar
+        renderGames();
     </script>
 </body>
 </html>
