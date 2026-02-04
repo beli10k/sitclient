@@ -33,7 +33,12 @@
                     <a href="#contato">Contato</a>
                 </nav>
 
-                <button class="cta-button btn btn-primary">Apostar Grátis</button>
+                <div class="balance-display">
+                    <span class="balance-label">Saldo:</span>
+                    <span class="balance-value" id="userBalance">1000.00</span>
+                    <span class="balance-currency">💰</span>
+                </div>
+                <button class="cta-button btn btn-primary">⚡ Apostar Grátis</button>
                 <button class="menu-toggle">☰</button>
             </div>
         </div>
@@ -50,8 +55,8 @@
                 <p>Plataforma <strong>100% gratuita e fictícia</strong> de apostas esportivas. Simule apostas, analise estatísticas e divirta-se sem gastar nada!</p>
                 
                 <div class="hero-buttons">
-                    <button class="btn btn-primary">⚡ Começar Agora</button>
-                    <button class="btn btn-outline">📊 Ver Estatísticas</button>
+                    <button class="btn btn-primary" onclick="document.getElementById('jogos').scrollIntoView({behavior: 'smooth'})">⚡ Começar Agora</button>
+                    <button class="btn btn-outline" onclick="document.getElementById('estatisticas').scrollIntoView({behavior: 'smooth'})">📊 Ver Estatísticas</button>
                 </div>
                 
                 <div class="hero-features">
@@ -273,6 +278,7 @@
                         <li><a id="privacyLink" style="cursor: pointer;">Política de Privacidade</a></li>
                         <li><a id="termsLink" style="cursor: pointer;">Termos de Uso</a></li>
                         <li><a id="faqLink" style="cursor: pointer;">FAQ</a></li>
+                        <li><a id="resetBalance" style="cursor: pointer; color: #FFB81C;">🔄 Resetar Saldo</a></li>
                     </ul>
                 </div>
             </div>

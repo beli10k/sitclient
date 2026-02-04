@@ -1,3 +1,30 @@
+// ===== SISTEMA DE SALDO =====
+const INITIAL_BALANCE = 1000;
+
+function getBalance() {
+    const balance = localStorage.getItem('userBalance');
+    return balance ? parseFloat(balance) : INITIAL_BALANCE;
+}
+
+function setBalance(amount) {
+    localStorage.setItem('userBalance', amount.toString());
+    updateBalanceDisplay();
+}
+
+function addBalance(amount) {
+    const current = getBalance();
+    setBalance(current + amount);
+}
+
+function updateBalanceDisplay() {
+    const balanceElement = document.getElementById('userBalance');
+    if (balanceElement) {
+        const balance = getBalance();
+        balanceElement.textContent = balance.toFixed(2);
+        balanceElement.style.color = balance < 100 ? '#E8112D' : balance > 1500 ? '#009C3B' : '#FFB81C';
+    }
+}
+
 // ===== DADOS DOS JOGOS =====
 const games = [
     {
@@ -186,7 +213,8 @@ function closeBetModal() {
 function submitBet() {
     const name = document.getElementById('betName').value;
     const email = document.getElementById('betEmail').value;
-    const amount = document.getElementById('betAmount').value;
+    const amount = parseFloat(document.getElementById('betAmount').value);
+    const currentBalance = getBalance();
 
     if (!name || !email || !amount) {
         alert('Preencha todos os campos!');
@@ -198,11 +226,24 @@ function submitBet() {
         return;
     }
 
+    if (amount > currentBalance) {
+        alert(`Saldo insuficiente! Você tem ${currentBalance.toFixed(2)} créditos.`);
+        return;
+    }
+
     // Simular envio
     const possibleResults = ['Vitória! 🎉', 'Derrota 😢', 'Empate 🤝'];
     const result = possibleResults[Math.floor(Math.random() * possibleResults.length)];
     
     const winnings = amount * currentBet.odd;
+    const isWin = result === 'Vitória! 🎉';
+    
+    // Atualizar saldo
+    let newBalance = currentBalance - amount; // Debita a aposta
+    if (isWin) {
+        newBalance += winnings; // Adiciona ganhos se vencer
+    }
+    setBalance(newBalance);
 
     console.log({
         name,
@@ -217,11 +258,14 @@ function submitBet() {
 
     // Mostrar mensagem de sucesso
     const successMsg = document.getElementById('successMessage');
+    const balanceChange = isWin ? (winnings - amount).toFixed(2) : (-amount).toFixed(2);
+    const balanceChangeColor = isWin ? '#009C3B' : '#E8112D';
     successMsg.innerHTML = `
         <strong>✓ Aposta Simulada com Sucesso!</strong><br>
-        <strong>${name}</strong>, sua aposta de <strong>${amount} créditos</strong> foi registrada!<br>
+        <strong>${name}</strong>, sua aposta de <strong>${amount.toFixed(2)} créditos</strong> foi registrada!<br>
         <strong>Resultado Simulado: ${result}</strong>
-        ${result === 'Vitória! 🎉' ? `<br>Você ganhou: <strong>${winnings.toFixed(2)} créditos</strong> 🍀` : ''}
+        ${isWin ? `<br>Você ganhou: <strong style="color: #009C3B;">${winnings.toFixed(2)} créditos</strong> 🍀` : '<br>Você perdeu esta rodada 😢'}
+        <br><strong style="color: ${balanceChangeColor};">Saldo agora: ${newBalance.toFixed(2)} créditos</strong>
     `;
     successMsg.classList.add('show');
 
@@ -241,6 +285,9 @@ function showClubDetails(clubName, emoji) {
 
 // ===== FECHAR MODAL AO CLICAR FORA =====
 document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar saldo
+    updateBalanceDisplay();
+    
     const betModal = document.getElementById('betModal');
     if (betModal) {
         betModal.addEventListener('click', (e) => {
@@ -279,6 +326,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('privacyLink')?.addEventListener('click', () => showModalPage('privacy'));
     document.getElementById('termsLink')?.addEventListener('click', () => showModalPage('terms'));
     document.getElementById('faqLink')?.addEventListener('click', () => showModalPage('faq'));
+    
+    // Botões de ação
+    document.querySelectorAll('.cta-button, .btn-primary, .btn-outline').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            if (e.target.textContent.includes('Começar') || e.target.textContent.includes('Apostar')) {
+                document.getElementById('jogos').scrollIntoView({ behavior: 'smooth' });
+            } else if (e.target.textContent.includes('Estatísticas')) {
+                document.getElementById('estatisticas').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+    
+    // Botão de reset de saldo (opcional - para testes)
+    const resetBtn = document.getElementById('resetBalance');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (confirm('Deseja resetar seu saldo para 1000 créditos?')) {
+                setBalance(INITIAL_BALANCE);
+            }
+        });
+    }
 });
 
 // ===== MODAL PAGES =====
